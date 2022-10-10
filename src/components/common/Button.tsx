@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import palette from '~/lib/styles/palette'
 
-const Button = () => {
-  return <div>Button</div>
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
+
+const Button = ({ ...props }: ButtonProps) => {
+  return <StyledButton {...props} />
 }
 
 export default Button
