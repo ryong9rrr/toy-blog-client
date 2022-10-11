@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '~/modules'
 import { AuthForm } from '~/components/auth'
-import { registerActions } from '~/modules/auth'
+import { registerActions } from '~/modules/register'
 
 const RegisterForm = () => {
   const dispatch = useDispatch()

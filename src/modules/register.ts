@@ -6,11 +6,6 @@ const initialRegisterState = {
   passwordConfirm: '',
 }
 
-const initialLoginState = {
-  username: '',
-  password: '',
-}
-
 export const registerSlice = createSlice({
   name: 'register',
   initialState: initialRegisterState,
@@ -24,18 +19,4 @@ export const registerSlice = createSlice({
   },
 })
 
-export const loginSlice = createSlice({
-  name: 'login',
-  initialState: initialLoginState,
-  reducers: {
-    changeField: (state, action: PayloadAction<{ key: keyof typeof initialLoginState; value: string }>) => {
-      state[action.payload.key] = action.payload.value
-    },
-    initializeForm: (state) => {
-      state = { ...initialLoginState }
-    },
-  },
-})
-
 export const registerActions = registerSlice.actions
-export const loginActions = loginSlice.actions

@@ -30,14 +30,14 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {
       <h3>{text}</h3>
       <form onSubmit={onSubmit}>
         <StyledInput
-          autoComplete="username"
+          autoComplete="off"
           name="username"
           placeholder="아이디"
           onChange={onChange}
           value={form.username}
         />
         <StyledInput
-          autoComplete="new-password"
+          autoComplete="off"
           name="password"
           placeholder="비밀번호"
           type="password"
@@ -46,7 +46,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {
         />
         {type === 'register' && (
           <StyledInput
-            autoComplete="new-password"
+            autoComplete="off"
             name="passwordConfirm"
             placeholder="비밀번호 확인"
             type="password"
