@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import palette from '~/lib/styles/palette'
 import { Button } from '../common'
+
+type Form = {
+  username: string
+  password: string
+  passwordConfirm?: string
+}
 
 const textMap = {
   login: '로그인',
@@ -11,9 +17,9 @@ const textMap = {
 
 interface AuthFormProps {
   type: keyof typeof textMap
-  form?: any
-  onChange?: () => void
-  onSubmit?: () => void
+  form: Form
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onSubmit: (e: FormEvent) => void
   error?: any
 }
 
@@ -28,7 +34,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {
           name="username"
           placeholder="아이디"
           onChange={onChange}
-          //value={form.username}
+          value={form.username}
         />
         <StyledInput
           autoComplete="new-password"
@@ -36,7 +42,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {
           placeholder="비밀번호"
           type="password"
           onChange={onChange}
-          //value={form.password}
+          value={form.password}
         />
         {type === 'register' && (
           <StyledInput
@@ -45,7 +51,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }: AuthFormProps) => {
             placeholder="비밀번호 확인"
             type="password"
             onChange={onChange}
-            //value={form.passwordConfirm}
+            value={form.passwordConfirm}
           />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}

@@ -1,19 +1,41 @@
-import { createAction, handleActions } from 'redux-actions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const SAMPLE_ACTION = 'auth/SAMPLE_ACTION' as const
+const initialRegisterState = {
+  username: '',
+  password: '',
+  passwordConfirm: '',
+}
 
-export const sampleAction = createAction(SAMPLE_ACTION)
+const initialLoginState = {
+  username: '',
+  password: '',
+}
 
-// eslint-disable-next-line
-type AuthState = {}
-
-const initialState: AuthState = {}
-
-const auth = handleActions(
-  {
-    [SAMPLE_ACTION]: (state, action) => state,
+export const registerSlice = createSlice({
+  name: 'register',
+  initialState: initialRegisterState,
+  reducers: {
+    changeField: (state, action: PayloadAction<{ key: keyof typeof initialRegisterState; value: string }>) => {
+      state[action.payload.key] = action.payload.value
+    },
+    initializeForm: (state) => {
+      state = { ...initialRegisterState }
+    },
   },
-  initialState,
-)
+})
 
-export default auth
+export const loginSlice = createSlice({
+  name: 'login',
+  initialState: initialLoginState,
+  reducers: {
+    changeField: (state, action: PayloadAction<{ key: keyof typeof initialLoginState; value: string }>) => {
+      state[action.payload.key] = action.payload.value
+    },
+    initializeForm: (state) => {
+      state = { ...initialLoginState }
+    },
+  },
+})
+
+export const registerActions = registerSlice.actions
+export const loginActions = loginSlice.actions
