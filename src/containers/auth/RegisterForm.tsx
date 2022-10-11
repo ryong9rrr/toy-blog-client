@@ -2,16 +2,16 @@ import React, { ChangeEvent, FormEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '~/modules'
 import { AuthForm } from '~/components/auth'
-import { registerActions } from '~/modules/register'
+import { authActions } from '~/modules/auth'
 
 const RegisterForm = () => {
   const dispatch = useDispatch()
-  const form = useSelector((state: RootState) => state.register)
+  const form = useSelector((state: RootState) => state.auth.register)
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     if (name === 'username' || name === 'password' || name === 'passwordConfirm') {
-      dispatch(registerActions.changeField({ key: name, value }))
+      dispatch(authActions.changeField({ form: 'register', key: name, value }))
     }
   }
 
@@ -20,7 +20,7 @@ const RegisterForm = () => {
   }
 
   useEffect(() => {
-    dispatch(registerActions.initializeForm())
+    dispatch(authActions.initializeForm('register'))
   }, [])
 
   return <AuthForm type="register" form={form} onChange={onChange} onSubmit={onSubmit} />
