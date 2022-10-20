@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
 import styled from 'styled-components';
@@ -36,7 +36,6 @@ const Editor = ({ title, body, onChangeField }) => {
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance = useRef(null); // Quill 인스턴스를 설정
 
-  // 외부 라이브러리를 DOM에 연결할 때는 이렇게 useRef와 useEffect를 적절하게 사용하면 된다.
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
       theme: 'bubble',
@@ -62,6 +61,15 @@ const Editor = ({ title, body, onChangeField }) => {
       }
     });
   }, [onChangeField]);
+
+  // useEffect안에 의존성 배열을 비워 줄 수도 있지만 ESlint 규칙을 권장하고
+  // 또 useRef를 이런식으로 활용할 수도 있다는 것.
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (mounted.current) return;
+    mounted.current = true;
+    quillInstance.current.root.innerHTML = body;
+  }, [body]);
 
   const onChangeTitle = (e) => {
     onChangeField({ key: 'title', value: e.target.value });
